@@ -15,6 +15,13 @@ class CreateTasksTable extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('nom');
+            $table->string('prenom');
+            $table->string("email");
+            $table->string("tel");
+            $table->string("motif");
+            $table->string("photos");
+            $table->string("message");
             $table->timestamps();
         });
     }
