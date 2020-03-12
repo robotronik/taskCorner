@@ -17,12 +17,13 @@ class CreateTasksTable extends Migration
             $table->id();
             $table->string('nom');
             $table->string('prenom');
-            $table->string("email");
-            $table->string("tel");
-            $table->string("social");
-            $table->string("type");
-            $table->string("motif");
-            $table->text("description");
+            $table->string('email');
+            $table->string('tel');
+            $table->string('social');
+            $table->string('type');
+            $table->string('motif');
+            $table->text('description');
+            $table->enum('statut', ['cree', 'accepte', 'devis', 'prix_accepte', 'termine', 'abandonne', 'indefini']);
             $table->timestamps();
         });
     }
