@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Task
+use App\Http\Controllers\Controller;
+use App\Task;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
     public function index(){
-        $tasks = Task::where('statut', '<', 'abandonne')->orderBy('created_at', 'desc')->get();
-        return $tasks->toJson;
+        $tasks = DB::table('tasks')->where('statut', '<', 'abandonne')->orderBy('created_at', 'desc')->get();
+        return $tasks->toJson();
     }
 
     public function store(Request $request){
@@ -24,7 +26,7 @@ class TaskController extends Controller
             'description' => 'required',
             'statut' => 'required',
         ]);
-        $tasks = Task::create([
+        $task = DB::table('tasks')->insert([
             'nom' => $validateData['nom'],
             'prenom' => $validateData['prenom'],
             'email' => $validateData['email'],
@@ -39,11 +41,13 @@ class TaskController extends Controller
     }
 
     public function show($id){
-        $project = Task::
-        return $project->toJson();
+        $task = DB::table('tasks')->find($id);
+        return $task->toJson();
     }
 
-    public function edit(Project $project){
+    public function edit(Task $task){
+        $task->statut = 1;
+        $task->update();
         return response()->json('Task updated!');
     }
 }
